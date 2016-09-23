@@ -4,15 +4,12 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     return "<a href = '/occupations'>Occupations</a>"
-dict = convertDict("occupations.csv")
-valueList = []
-keyList = []
-for item in dict:
-    keyList.append(item)
-    valueList.append(item)
+
 @app.route("/occupations")
 def occupation():
-    return render_template("occupations.html", keyList = keyList, valueList = valueList)
+    occupationsDict = convertDict("occupations.csv")
+    job = occupations()
+    return render_template("occupations.html", occupationsDict = occupationsDict, job = job)
 
 
 if __name__ == "__main__":

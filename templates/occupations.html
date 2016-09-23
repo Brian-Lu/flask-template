@@ -5,7 +5,18 @@
   </head>
   <body>
     <h1>Here is your future job!</h1>
-    <table style = "width:100%">
+    <table style = "width:100%" border = "1">
+      <tr>
+	<th>Occupation</th>
+	<th>Percentage</th>
+      </tr>
+      {% for key, value in occupationsDict.iteritems() %}
+      <tr>
+	<td> {{ key }} </td>
+	<td> {{ value }} </td>
+      <tr>
+	{% endfor %}
     </table>
+    <h2>Your future job is {{ job }} </h2>
   </body>
 </html>  
