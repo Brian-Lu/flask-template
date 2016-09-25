@@ -8,23 +8,31 @@ def convertDict(x):
     f.readline()
     m = f.readline()
     while m!='':
+        valueHolder = []
         if m[0]=='"':
             m = m[1:]
-            n = m.index('"')+1 # finds index of second "
-            d[m[:n-1]] = float(m[n+1:])
+            indexOfEndQuote = m.find('"')
+            currentJob = m[:indexOfEndQuote]
+            indexOfSecondComma = m.find(',', indexOfEndQuote + 2)
+            valueHolder.append(float(m[indexOfEndQuote + 2: indexOfSecondComma]))
+            valueHolder.append(m[indexOfSecondComma + 1:])
+            d[currentJob] = valueHolder
         else:
-            n = m.index(',')
-            if(m[0:5]!='Total'):
-                d[m[:n]] = float(m[n+1:]) # add the kv pair to d
-        m = f.readline() # next line, por favor
+            if m[0:5] != 'Total':
+                indexOfComma = m.find(',')
+                currentJob = m[:indexOfComma]
+                indexOfSecondComma = m.find(',', indexOfComma + 1)
+                valueHolder.append(float(m[indexOfComma + 1: indexOfSecondComma]))
+                valueHolder.append(m[indexOfSecondComma + 1:])
+                d[currentJob] = valueHolder
+        m = f.readline()
     return d
-
 def picker(dict):
     percentage = random.random() * 99.8
     counter = 0
     for item in dict:
-        if percentage > dict[item] + counter:
-            counter += dict[item]
+        if percentage > dict[item][0] + counter:
+            counter += dict[item][0]
         else:
             return item
         
@@ -32,3 +40,4 @@ def occupations():
     dict = convertDict("occupations.csv")
     return picker(dict)
 
+print occupations()

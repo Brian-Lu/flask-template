@@ -9,8 +9,8 @@ def index():
 def occupation():
     occupationsDict = convertDict("occupations.csv")
     job = occupations()
-    return render_template("occupations.html", occupationsDict = occupationsDict, job = job)
-
+    helpfulLink = occupationsDict[job][1]
+    return render_template("occupations.html", occupationsDict = occupationsDict, job = job, helpfulLink = helpfulLink)
 
 if __name__ == "__main__":
     app.run()
