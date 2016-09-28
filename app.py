@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from occupations import convertDict, picker, occupations
+from utils import occupations
 app = Flask(__name__)
 @app.route("/")
 def index():
@@ -7,8 +7,8 @@ def index():
 
 @app.route("/occupations")
 def occupation():
-    occupationsDict = convertDict("occupations.csv")
-    job = occupations()
+    occupationsDict = occupations.convertDict("data/occupations.csv")
+    job = occupations.occupations()
     helpfulLink = occupationsDict[job][1]
     return render_template("occupations.html", occupationsDict = occupationsDict, job = job, helpfulLink = helpfulLink)
 
